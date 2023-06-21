@@ -28,8 +28,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  # to use state Provider state management
+  # to use Provider state management
   provider: ^6.0.2
+  # to use  GET X state management 4.6.1 Fails
+  get: 4.3.8
 
 dev_dependencies:
   flutter_test:
