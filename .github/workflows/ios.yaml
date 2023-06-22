@@ -1,5 +1,5 @@
 # Workflow Name
-name: Flutter TEST
+name: IPHONE TEST
 
 # git events which will trigger the workflow
 #on: [push]
@@ -14,8 +14,8 @@ on:
 # Do a build in this case
 jobs:
   build:
-    name: Test the flutter in ubuntu
-    runs-on: ubuntu-latest
+    name: Test the flutter in mac os
+    runs-on: macos-latest
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -31,25 +31,18 @@ jobs:
         run: |
           ls ${{ github.workspace }}
 
-      - name: Get free version of jdk
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-
       - name: Action for flutter dependencies
         uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.2.3'
           channel: 'stable'
+          architecture: x64
 
       - name: Getting the dependencies
         run: flutter pub get
       - name: Testing
         run: flutter test
-      - name: Building APK OLd School
-        run: flutter build apk
-      - name: Building AAB New School
-        run: flutter build appbundle
+      - name: Building IOS
+        run: flutter build ios --release --no-codesign
 
       - run: echo "🍏 This job's status is ${{ job.status }}."

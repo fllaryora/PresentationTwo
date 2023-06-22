@@ -1,5 +1,6 @@
 # presentationtwo
-
+![Android workflow](https://github.com/fllaryora/PresentationTwo/actions/workflows/test.yaml/badge.svg)
+![Android workflow](https://github.com/fllaryora/PresentationTwo/actions/workflows/ios.yaml/badge.svg)
 A new Flutter project.
 
 ## Getting Started
