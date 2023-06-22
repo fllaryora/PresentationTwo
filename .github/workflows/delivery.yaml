@@ -1,0 +1,65 @@
+# Workflow Name
+name: Flutter DELIVERY
+
+# git events which will trigger the workflow
+#on: [push]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+# https://www.matijanovosel.com/blog/deploying-flutter-applications-to-google-play-using-github-actions
+jobs:
+  build:
+    name: Delivery the flutter in ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Action for checking out a repo
+        uses: actions/checkout@v3 # https://github.com/actions/checkout
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - name: Get free version of jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Action for flutter dependencies
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.2.3'
+          channel: 'stable'
+
+      - name: Update version in YAML
+        run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
+
+      - name: Getting the dependencies
+        run: flutter clean
+      - name: Getting the dependencies
+        run: flutter pub get
+      - name: Testing
+        run: flutter test
+      - name: Building AAB New School
+        run: flutter build appbundle --release
+
+      - name: Save AAB to Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/bundle/release/*.aab"
+          # https://subeg7.medium.com/easily-add-a-secret-to-the-github-workflow-file-297971d34cd4
+          token: ${{ secrets.RELEASE_TOKEN }}
+          tag: ${{ steps.version.outputs.content }}
+          commit: ${{ github.sha }}
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
