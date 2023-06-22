@@ -59,7 +59,7 @@ jobs:
           artifacts: "build/app/outputs/bundle/release/*.aab"
           # https://subeg7.medium.com/easily-add-a-secret-to-the-github-workflow-file-297971d34cd4
           token: ${{ secrets.RELEASE_TOKEN }}
-          tag: ${{ steps.version.outputs.content }}
+          tag: v1.0.${{ github.run_number }}
           commit: ${{ github.sha }}
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
