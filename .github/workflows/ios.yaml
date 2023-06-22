@@ -1,0 +1,55 @@
+# Workflow Name
+name: Flutter TEST
+
+# git events which will trigger the workflow
+#on: [push]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+#crate a job for the action
+#and set the purpose of what it is for
+# Do a build in this case
+jobs:
+  build:
+    name: Test the flutter in ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Action for checking out a repo
+        uses: actions/checkout@v3 # https://github.com/actions/checkout
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - name: Get free version of jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Action for flutter dependencies
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.2.3'
+          channel: 'stable'
+
+      - name: Getting the dependencies
+        run: flutter pub get
+      - name: Testing
+        run: flutter test
+      - name: Building APK OLd School
+        run: flutter build apk
+      - name: Building AAB New School
+        run: flutter build appbundle
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
