@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:presentationtwo/ui/feature_with_bloc/app.dart';
 import 'package:presentationtwo/ui/feature_with_bloc/observer.dart';
 
-import 'package:presentationtwo/ui/get_x_state_management/app.dart';
-import 'package:presentationtwo/ui/navigation/app.dart';
-import 'package:presentationtwo/ui/provider_example/app.dart';
-import 'package:presentationtwo/ui/provider_example/main_model.dart';
+///import 'package:presentationtwo/ui/get_x_state_management/app.dart';
+///import 'package:presentationtwo/ui/navigation/app.dart';
+///import 'package:presentationtwo/ui/provider_example/app.dart';
+///import 'package:presentationtwo/ui/provider_example/main_model.dart';
 
-import 'package:provider/provider.dart';
+///import 'package:provider/provider.dart';
 
 void main() {
   //OK
